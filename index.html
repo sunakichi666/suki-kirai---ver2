@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/style.css">
+    <title>好き嫌いゲーム</title>
+</head>
+<body>
+ <header>
+    <h1 class="title">好き嫌いゲーム</h1>
+</header>
+
+<main>
+<button id="flower_btn">占いを始める</button>
+
+
+<div class="parent">
+<div id="flower"></div>
+<button id="flower_btn2"></button>
+</div>
+
+<div class="result">彼女は自分のことを・・・<span id="judgement" ></span></div>
+
+
+</main>
+<footer></footer>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
+<script>
+let count = 0; 
+// ちぎった回数を覚える変数`count`を作り、0から始める
+$("#flower_btn").on("click", function(){
+    //乱数５～９（花弁数）
+    const r=Math.ceil(Math.random()*5)+4;
+   console.log()
+    $("#flower").html('<img class="child" src="img/yellow_hanabira.png" alt="">'.repeat(r));
+    // repeat 文字列等を複数回繰り返す
+
+// 5枚の花弁から何枚目かを選ぶ .eq() カッコ内は0から始まる。０の時は１枚目・・・１の時は２枚目
+// transform = 要素を回転・移動・拡大縮小するCSSのプロパティ(この場合はrotateやtranslateYとセット)
+// rotate(72deg)=花弁を配置する角度（72度回す）
+// translateY(-80px)= その方向へ80px移動する
+ if (r===5){
+    $("#flower img").eq(0).css("transform", "rotate(0deg) translateY(-120px)")
+    $("#flower img").eq(1).css("transform", "rotate(-72deg) translateY(-120px)")
+    $("#flower img").eq(2).css("transform", "rotate(-144deg) translateY(-120px)")
+    $("#flower img").eq(3).css("transform", "rotate(-216deg) translateY(-120px)")
+    $("#flower img").eq(4).css("transform", "rotate(-288deg) translateY(-120px)")
+ }
+
+ if (r===6){
+    $("#flower img").eq(0).css("transform", "rotate(0deg) translateY(-120px)")
+    $("#flower img").eq(1).css("transform", "rotate(-60deg) translateY(-120px)")
+    $("#flower img").eq(2).css("transform", "rotate(-120deg) translateY(-120px)")
+    $("#flower img").eq(3).css("transform", "rotate(-180deg) translateY(-120px)")
+    $("#flower img").eq(4).css("transform", "rotate(-240deg) translateY(-120px)")
+    $("#flower img").eq(5).css("transform", "rotate(-300deg) translateY(-120px)")
+ }
+ if (r===7){
+    $("#flower img").eq(0).css("transform", "rotate(0deg) translateY(-110px)")
+    $("#flower img").eq(1).css("transform", "rotate(-51.4deg) translateY(-110px)")
+    $("#flower img").eq(2).css("transform", "rotate(-102.8deg) translateY(-110px)")
+    $("#flower img").eq(3).css("transform", "rotate(-154.2deg) translateY(-110px)")
+    $("#flower img").eq(4).css("transform", "rotate(-205.6deg) translateY(-110px)")
+    $("#flower img").eq(5).css("transform", "rotate(-257.1deg) translateY(-110px)")
+    $("#flower img").eq(6).css("transform", "rotate(-308.5deg) translateY(-110px)")
+ }
+
+ if (r===8){
+    $("#flower img").eq(0).css("transform", "rotate(0deg) translateY(-110px)")
+    $("#flower img").eq(1).css("transform", "rotate(-45deg) translateY(-110px)")
+    $("#flower img").eq(2).css("transform", "rotate(-90deg) translateY(-110px)")
+    $("#flower img").eq(3).css("transform", "rotate(-135deg) translateY(-110px)")
+    $("#flower img").eq(4).css("transform", "rotate(-180deg) translateY(-110px)")
+    $("#flower img").eq(5).css("transform", "rotate(-225deg) translateY(-110px)")
+    $("#flower img").eq(6).css("transform", "rotate(-270deg) translateY(-110px)")
+    $("#flower img").eq(7).css("transform", "rotate(-315deg) translateY(-110px)")
+ }
+
+ if (r===9){
+    $("#flower img").eq(0).css("transform", "rotate(0deg) translateY(-110px)")
+    $("#flower img").eq(1).css("transform", "rotate(-40deg) translateY(-110px)")
+    $("#flower img").eq(2).css("transform", "rotate(-80deg) translateY(-110px)")
+    $("#flower img").eq(3).css("transform", "rotate(-120deg) translateY(-110px)")
+    $("#flower img").eq(4).css("transform", "rotate(-160deg) translateY(-110px)")
+    $("#flower img").eq(5).css("transform", "rotate(-200deg) translateY(-110px)")
+    $("#flower img").eq(6).css("transform", "rotate(-240deg) translateY(-110px)")
+    $("#flower img").eq(7).css("transform", "rotate(-280deg) translateY(-110px)") 
+    $("#flower img").eq(8).css("transform", "rotate(-320deg) translateY(-110px)") 
+ }
+
+
+count = 0; // ちぎった回数を０に戻す
+$("#judgement").text("？"); 
+// 前の結果の「好き・嫌い」を「？」に戻す。
+});
+
+$("#flower_btn2").on("click", function(){
+    // length=0は、残っている花びらが0枚なら
+    if ($("#flower img").length ===0){
+    return;  
+    // return クリック処理をその場で終了
+}
+    // .last()で最後の１枚（5枚ある場合、288度 → 216度 → 144度 → 72度 → 0度）を選び、removeで消す。
+    // remove()だけなら花弁が全部消える。
+    $("#flower img").last().remove();
+    count++; // ちぎった回数を1増やす
+
+if(count %2===1){
+    $("#judgement").text("好き").css("color","red");
+}
+
+if(count %2 ===0){
+    $("#judgement").text("嫌い").css("color","blue");
+}
+
+if($("#flower img").length===0){
+
+if (count % 2 === 1) {
+    // 奇数のときの処理
+    $("#judgement").html('<img src="img/suki.png" alt="好き">');
+} 
+
+if (count % 2 === 0) {
+    // 偶数のときの処理
+    $("#judgement").html('<img src="img/kirai.jpeg" alt="嫌い">');
+}
+}
+
+});
+</script>
+
+
+
+
+
+</body>
+</html>
